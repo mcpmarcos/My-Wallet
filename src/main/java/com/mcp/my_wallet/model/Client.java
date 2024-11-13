@@ -2,8 +2,10 @@ package com.mcp.my_wallet.model;
 
 
 import java.time.LocalDateTime;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import org.hibernate.annotations.CreationTimestamp;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -28,9 +30,11 @@ public class Client {
 
     private String password;
 
-    @CreationTimestamp
+    //@DateTimeFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDateTime birth; 
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
