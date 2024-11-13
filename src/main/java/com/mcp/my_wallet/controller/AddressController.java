@@ -38,15 +38,11 @@ public class AddressController {
        return service.findAllAddresses();
    }
 
-   // update
-
    @PutMapping("/address/{id}")
    public ResponseEntity<String> updateAddress(@RequestBody AddressDTO addressDTO, @PathVariable Long id) {
         return service.updateAddress(addressDTO, id);
     }
 
-
-   // delete
     @DeleteMapping("/address/{id}")
     public void deleteAddress(@PathVariable Long id) {
         service.deleteAddress(id);

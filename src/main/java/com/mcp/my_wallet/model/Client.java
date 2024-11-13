@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -18,6 +19,7 @@ import lombok.Data;
 
 @Data
 @Entity
+@JsonIgnoreProperties({"address"})
 public class Client {
     
     @Id
@@ -34,9 +36,9 @@ public class Client {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDateTime birth; 
 
-    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
+    @JsonIgnore
     private Address address;
 
     // private Account account;

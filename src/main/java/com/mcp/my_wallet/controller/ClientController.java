@@ -1,5 +1,7 @@
 package com.mcp.my_wallet.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mcp.my_wallet.DTO.AddressDTO;
 import com.mcp.my_wallet.DTO.ClientDTO;
 import com.mcp.my_wallet.model.Client;
 import com.mcp.my_wallet.service.ClientService;
@@ -28,9 +31,19 @@ public class ClientController {
        return service.findById(id); 
    }
 
+    @GetMapping("/client")
+    public List<ClientDTO> findAllClients() {
+       return service.findAllClients();
+    }
+
+
+   //update client
+   
+   //delete clients
+
    /* tentativa de resolver o formato de data que o json terá
 
-   
+
     *@InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(LocalDateTime.class, new PropertyEditorSupport() {
