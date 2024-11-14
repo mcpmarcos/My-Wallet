@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.mcp.my_wallet.DTO.ClientDTO;
-import com.mcp.my_wallet.DTO.ClientDTO;
 import com.mcp.my_wallet.model.Client;
 import com.mcp.my_wallet.repository.ClientRepository;
 
@@ -48,9 +47,10 @@ public class ClientService {
     return ResponseEntity.ok("Ok");
     }
 
-    //delete clients
-
-    
+    public void deleteClient(Long id) {
+        Client client = repository.findById(id).get();
+        repository.delete(client);
+    }
 
     public ClientDTO createDTO(Client client){
         ClientDTO clientDTO = new ClientDTO(client.getId(), client.getCpf(), client.getName(), client.getPassword(), client.getBirth(),client.getAddress());
@@ -65,5 +65,6 @@ public class ClientService {
         }
         return clientDTOs;
     }
+
 
 }
