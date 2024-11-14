@@ -26,14 +26,31 @@ public class ClientService {
     }
 
     public ClientDTO findById(Long id) {
-       Client client = repository.findById(id).get();
-       return createDTO(client);
-   }
-
-   public List<ClientDTO> findAllClients() {
+        Client client = repository.findById(id).get();
+        return createDTO(client);
+    }
+    
+    public List<ClientDTO> findAllClients() {
         List<Client> clients = repository.findAll();
         return createDTO(clients);
     }
+    
+    public ResponseEntity<String> updateClient(ClientDTO clientDTO, Long id) {
+       Client newClient = repository.findById(id).get(); 
+       if (!newClient.equals(null)) {
+        newClient.setCpf(clientDTO.cpf());
+        newClient.setName(clientDTO.name());
+        newClient.setPassword(clientDTO.password());
+        newClient.setBirth(clientDTO.birth());
+        newClient.setAddress(clientDTO.address());
+        repository.save(newClient);
+    }
+    return ResponseEntity.ok("Ok");
+    }
+
+    //delete clients
+
+    
 
     public ClientDTO createDTO(Client client){
         ClientDTO clientDTO = new ClientDTO(client.getId(), client.getCpf(), client.getName(), client.getPassword(), client.getBirth(),client.getAddress());
@@ -48,4 +65,5 @@ public class ClientService {
         }
         return clientDTOs;
     }
+
 }
