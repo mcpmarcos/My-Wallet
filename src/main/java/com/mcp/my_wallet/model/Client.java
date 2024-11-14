@@ -2,11 +2,9 @@ package com.mcp.my_wallet.model;
 
 
 import java.time.LocalDateTime;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -19,7 +17,6 @@ import lombok.Data;
 
 @Data
 @Entity
-@JsonIgnoreProperties({"address"})
 public class Client {
     
     @Id
@@ -41,15 +38,19 @@ public class Client {
     @JsonIgnore
     private Address address;
 
-    // private Account account;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "account_id")
+    @JsonIgnore
+    private Account account;
 
-    public Client (Long id, int cpf, String name, String password, LocalDateTime birth, Address address) {
+    public Client (Long id, int cpf, String name, String password, LocalDateTime birth, Address address, Account account) {
         this.id = id;
         this.cpf = cpf;
         this.name = name;
         this.password = password;
         this.birth = birth;
         this.address =  address;
+        this.account = account;
     }
 
     public Client (){

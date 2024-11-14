@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.mcp.my_wallet.DTO.AddressDTO;
 import com.mcp.my_wallet.DTO.ClientDTO;
 import com.mcp.my_wallet.model.Client;
 import com.mcp.my_wallet.service.ClientService;
@@ -50,17 +48,4 @@ public class ClientController {
         service.deleteClient(id);
     }
 
-   /* tentativa de resolver o formato de data que o json terá
-
-
-    *@InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(LocalDateTime.class, new PropertyEditorSupport() {
-            @Override
-            public void setAsText(String text) {
-                setValue(LocalDateTime.parse(text, DateTimeFormatter.ofPattern("dd-MM-yyyy")));
-            }
-        });
-    }
-   */
 }

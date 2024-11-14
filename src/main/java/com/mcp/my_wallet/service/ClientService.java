@@ -19,7 +19,7 @@ public class ClientService {
     ClientRepository repository;
     
      public ResponseEntity<Client> createClient(ClientDTO clientDTO) {
-        Client newClient = new Client(clientDTO.id(), clientDTO.cpf(), clientDTO.name(), clientDTO.password(), clientDTO.birth(), clientDTO.address());
+        Client newClient = new Client(clientDTO.id(), clientDTO.cpf(), clientDTO.name(), clientDTO.password(), clientDTO.birth(), clientDTO.address(), clientDTO.account());
         repository.save(newClient);
         return ResponseEntity.status(HttpStatus.CREATED).body(newClient);
     }
@@ -42,6 +42,7 @@ public class ClientService {
         newClient.setPassword(clientDTO.password());
         newClient.setBirth(clientDTO.birth());
         newClient.setAddress(clientDTO.address());
+        newClient.setAccount(clientDTO.account());
         repository.save(newClient);
     }
     return ResponseEntity.ok("Ok");
@@ -53,14 +54,14 @@ public class ClientService {
     }
 
     public ClientDTO createDTO(Client client){
-        ClientDTO clientDTO = new ClientDTO(client.getId(), client.getCpf(), client.getName(), client.getPassword(), client.getBirth(),client.getAddress());
+        ClientDTO clientDTO = new ClientDTO(client.getId(), client.getCpf(), client.getName(), client.getPassword(), client.getBirth(),client.getAddress(), client.getAccount());
         return clientDTO;
     }
 
     public List<ClientDTO> createDTO(List<Client> clients){
         List<ClientDTO> clientDTOs = new ArrayList<>();
         for (Client client: clients) {        
-            ClientDTO clientDTO = new ClientDTO(client.getId(), client.getCpf(), client.getName(), client.getPassword(), client.getBirth(), client.getAddress());
+            ClientDTO clientDTO = new ClientDTO(client.getId(), client.getCpf(), client.getName(), client.getPassword(), client.getBirth(), client.getAddress(), client.getAccount());
             clientDTOs.add(clientDTO);
         }
         return clientDTOs;
