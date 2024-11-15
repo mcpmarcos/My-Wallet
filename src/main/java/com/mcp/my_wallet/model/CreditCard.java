@@ -1,15 +1,22 @@
 package com.mcp.my_wallet.model;
 
+import com.mcp.my_wallet.enums.*;;
+
 public class CreditCard {
     
 
-    // id
-    // card number
-    // bin number
-    // enum brand
-    // boolean activated
-    // cardCreditLimit
+    private Long id;
+
+    private String cardNumber;
+
+    private String binNumber;
+
+    private CardBrand cardBrand;
+    
+    private boolean isActivated;
+    
     // List of dependents
+    
     // account
 
 }

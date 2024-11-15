@@ -22,7 +22,9 @@ public class Account {
     private Client client;
 
     private Long accountCreditLimit;
-
+    
+    // Long creditMade;
+    
     // List of cards
     // List of transactions
     // List of invoices
