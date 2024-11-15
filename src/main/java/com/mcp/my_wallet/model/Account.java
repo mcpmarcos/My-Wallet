@@ -23,16 +23,17 @@ public class Account {
 
     private Long accountCreditLimit;
     
-    // Long creditMade;
+    private Long consumedCredit;
     
-    // List of cards
-    // List of transactions
-    // List of invoices
+    // OneToMany List of cards
+    // OneToMany List of transactions
+    // OneToMany List of invoices
 
-    public Account(Long id, Client client, Long accountCreditLimit) {
+    public Account(Long id, Client client, Long accountCreditLimit, Long consumedCredit) {
         this.id = id;
         this.client = client;
         this.accountCreditLimit = accountCreditLimit;
+        this.consumedCredit = consumedCredit;
     }
 
     public Account() {
