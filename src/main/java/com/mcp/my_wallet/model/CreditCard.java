@@ -1,5 +1,6 @@
 package com.mcp.my_wallet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mcp.my_wallet.enums.*;
 import com.mcp.my_wallet.enums.CardBrand;
 
@@ -27,9 +28,9 @@ public class CreditCard {
     
     private boolean isActivated;
     
-    //JsonIgnore 
+    @JsonIgnore 
     @ManyToOne
-    @JoinColumn(name = "acocunt_id") 
+    @JoinColumn(name = "acocunt_id", referencedColumnName = "id") 
     private Account account; 
     
     // List of dependents

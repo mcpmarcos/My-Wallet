@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.mcp.my_wallet.DTO.ClientDTO;
+import com.mcp.my_wallet.model.Account;
 import com.mcp.my_wallet.model.Client;
+import com.mcp.my_wallet.model.CreditCard;
 import com.mcp.my_wallet.repository.ClientRepository;
 
 @Service
@@ -22,9 +24,19 @@ public class ClientService {
 
      public ResponseEntity<Client> createClient(ClientDTO clientDTO) {
         Client newClient = new Client(clientDTO.id(), clientDTO.cpf(), clientDTO.name(), clientDTO.password(), clientDTO.birth(), clientDTO.address(), clientDTO.account());
-
-        //CreditCard creditCard = newClient.getAccount().
-    
+        Account account = newClient.getAccount();
+        List<CreditCard> cards = newClient.getAccount().getCards();
+        for (CreditCard card: cards) {
+            if (card.getBinNumber() == null) {
+                card.setCardNumber("0000000000000000");
+                card.setBinNumber("0");
+                card.setAccount(account);
+            }
+            int i = cards.indexOf(card);
+            cards.set(i, card);
+        } 
+        
+        //criar rotinas para gerar os numeros de cartão coretamente
         //newClient.account.cards.add(creditCardService.createCreditCard(VISA));
 
         repository.save(newClient);

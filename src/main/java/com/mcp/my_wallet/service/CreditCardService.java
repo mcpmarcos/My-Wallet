@@ -5,8 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.mcp.my_wallet.DTO.ClientDTO;
 import com.mcp.my_wallet.DTO.CreditCardBrandDTO;
 import com.mcp.my_wallet.enums.CardBrand;
+import com.mcp.my_wallet.model.Account;
+import com.mcp.my_wallet.model.Client;
 import com.mcp.my_wallet.model.CreditCard;
 import com.mcp.my_wallet.repository.CreditCardRepository;
 import java.util.List;
@@ -16,29 +19,29 @@ public class CreditCardService {
 
     @Autowired
     CreditCardRepository creditCardRepository;
+    
+    @Autowired
+    ClientService clientService;
+    
+    public ResponseEntity<CreditCard> createCreditCard(Long clientId, CreditCardBrandDTO brand) {
 
-    public ResponseEntity<CreditCard> createCreditCard(CreditCardBrandDTO creditCardDTO) {
-        CreditCard newCreditCard = new CreditCard(creditCardDTO.cardBrand());
+        ClientDTO clientDTO = clientService.findById(clientId);
+        Account account = clientDTO.account();
+        CardBrand cardBrand = brand.cardBrand();
+        CreditCard newCreditCard = new CreditCard(cardBrand);
         
         newCreditCard.setActivated(false);
         newCreditCard.setCardNumber("3251654684");
         newCreditCard.setBinNumber("123456");
-        
+        newCreditCard.setAccount(account);
+        account.getCards().add(newCreditCard);
+
         //newCreditCard.setBinNumber(CreditCardUtils.generateBinNumber(newCreditCard.getCardBrand()));
         //CreditCardUtils.generateNumbers(newCreditCard);
         
         creditCardRepository.save(newCreditCard);
         return ResponseEntity.status(HttpStatus.CREATED).body(newCreditCard);
-    }
-    
-    public ResponseEntity<CreditCard> createCreditCard(CardBrand brand) {
-        CreditCard newCreditCard = new CreditCard(brand);
-        newCreditCard.setActivated(false);
-        newCreditCard.setCardNumber("3251654684");
-        newCreditCard.setBinNumber("123456");
-        creditCardRepository.save(newCreditCard);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newCreditCard);
-    }   
+    } 
         
     // find credit card by id(id)
     public CreditCard findById(Long id){
@@ -80,7 +83,7 @@ public class CreditCardService {
         creditCardRepository.delete(creditCard);
     }
     
-    // CREATE DTOs
+    // CREATE DTOs if necessary
     /*
      public FullCreditCardDTO createDTO(CreditCard creditCard) {
         FullCreditCardDTO fullCreditCardDTO = new FullCreditCardDTO(

@@ -31,11 +31,8 @@ public class Account {
     
     private Long consumedCredit;
     
-    //testar o cascade all
-    //@JsonIgnore
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CreditCard> cards;
-
 
     // OneToMany List of transactions
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mcp.my_wallet.DTO.AccountDTO;
 import com.mcp.my_wallet.DTO.ClientDTO;
 import com.mcp.my_wallet.DTO.CreditCardBrandDTO;
+import com.mcp.my_wallet.enums.CardBrand;
 import com.mcp.my_wallet.model.Client;
 import com.mcp.my_wallet.model.CreditCard;
 import com.mcp.my_wallet.service.AccountService;
@@ -48,10 +49,10 @@ public class BankingController {
         return accountService.updateAccountBalance(updateAccount, accountId);
     }
 
-    // create credit card
-    @PostMapping("/card")
-    public ResponseEntity<CreditCard> createCreditCard(@RequestBody CreditCardBrandDTO creditCardDTO){
-        return creditCardService.createCreditCard(creditCardDTO);
+    // create credit card 
+    @PostMapping("/card/{clientId}")
+    public ResponseEntity<CreditCard> createCreditCard(@RequestBody CreditCardBrandDTO brand, @PathVariable Long clientId){
+        return creditCardService.createCreditCard(clientId, brand);
     }
 
     // delete credit card
@@ -90,13 +91,13 @@ public class BankingController {
         return creditCardService.findAll();
     }
     
+    
     // Add dependents to credit card
 
     
     //==========================================
     
-    //
-    
+
     // create transaction entity
     
     // paymentTransaction   >>  update balance
@@ -115,5 +116,7 @@ public class BankingController {
 
     // show dashboard
 
-    
+    //analisar quais endpoints terão que ser alterados para receberem o número cartão como parâmetro
+
+     //(opcional, apenas para tornar a api "mais restful"), criar DTO para cartão de crédito e as demais entidades, não criei pq to com pressa e só queria fazer funcionar o básico logo kkk
 }
