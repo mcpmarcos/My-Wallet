@@ -18,8 +18,14 @@ public class ClientService {
     @Autowired
     ClientRepository repository;
     
+    // CreditCardService creditCardService
+
      public ResponseEntity<Client> createClient(ClientDTO clientDTO) {
         Client newClient = new Client(clientDTO.id(), clientDTO.cpf(), clientDTO.name(), clientDTO.password(), clientDTO.birth(), clientDTO.address(), clientDTO.account());
+
+    
+        //newClient.account.cards.add(creditCardService.createCreditCard(VISA));
+
         repository.save(newClient);
         return ResponseEntity.status(HttpStatus.CREATED).body(newClient);
     }

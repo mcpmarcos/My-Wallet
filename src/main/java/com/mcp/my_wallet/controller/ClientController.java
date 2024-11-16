@@ -21,10 +21,7 @@ public class ClientController {
     @Autowired
     ClientService service;
     
-    @PostMapping("/client")
-    public ResponseEntity<Client>createclient(@RequestBody ClientDTO clientDTO) {
-        return service.createClient(clientDTO);
-    }
+   
     
    @GetMapping("/client/{id}")
    public ClientDTO findById(@PathVariable Long id){
