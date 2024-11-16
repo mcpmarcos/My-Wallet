@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;;
 
 @Entity
@@ -24,10 +25,12 @@ public class CreditCard {
     
     private boolean isActivated;
     
+    // JsonIgnore 
+    //@ManyToOne(mappedBy ) 
+    //private Account account; 
+    
     // List of dependents
     
-    // JsonIgnore ManyToOne (mappedBy = cards) account 
-
     public CreditCard(Long id, CardBrand cardBrand, String cardNumber, String binNumber, boolean isActivated) {
         this.id = id;
         this.cardBrand = cardBrand;

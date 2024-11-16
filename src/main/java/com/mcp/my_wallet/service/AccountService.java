@@ -36,14 +36,14 @@ public class AccountService {
     }
    
     public AccountDTO createDTO(Account account){
-        AccountDTO accountDTO = new AccountDTO(account.getId(), account.getClient(), account.getAccountCreditLimit(), account.getConsumedCredit());
+        AccountDTO accountDTO = new AccountDTO(account.getId(), account.getClient(), account.getAccountCreditLimit(), account.getConsumedCredit(), account.getCards());
         return accountDTO;
     }
 
     public List<AccountDTO> createDTO(List<Account> accounts){
         List<AccountDTO> accountsDTO = new ArrayList<>();
         for (Account account : accounts) {
-            AccountDTO accountDTO = new AccountDTO(account.getId(), account.getClient(), account.getAccountCreditLimit(), account.getConsumedCredit());        
+            AccountDTO accountDTO = new AccountDTO(account.getId(), account.getClient(), account.getAccountCreditLimit(), account.getConsumedCredit(), account.getCards());        
             accountsDTO.add(accountDTO);    
         }
         return accountsDTO;

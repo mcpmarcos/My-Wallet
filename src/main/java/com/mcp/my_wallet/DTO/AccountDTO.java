@@ -1,7 +1,10 @@
 package com.mcp.my_wallet.DTO;
 
-import com.mcp.my_wallet.model.Client;
+import java.util.List;
 
-public record AccountDTO(Long id, Client client, Long accountCreditLimit, Long consumedCredit) {
+import com.mcp.my_wallet.model.Client;
+import com.mcp.my_wallet.model.CreditCard;
+
+public record AccountDTO(Long id, Client client, Long accountCreditLimit, Long consumedCredit, List<CreditCard> cards) {
     
 }

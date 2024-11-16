@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,18 +30,23 @@ public class Account {
     
     private Long consumedCredit;
     
-    // OneToMany 
-    //@OneToMany
-    //@JoinColumn(name = "id")
-    //private List<CreditCard> cards;
+    //testar o cascade all
+    @OneToMany
+    @JoinColumn(name = "id")
+    private List<CreditCard> cards;
+
+
+
     // OneToMany List of transactions
+
     // OneToMany List of invoices
 
-    public Account(Long id, Client client, Long accountCreditLimit, Long consumedCredit) {
+    public Account(Long id, Client client, Long accountCreditLimit, Long consumedCredit, List<CreditCard> cards) {
         this.id = id;
         this.client = client;
         this.accountCreditLimit = accountCreditLimit;
         this.consumedCredit = consumedCredit;
+        this.cards = cards;
     }
 
     public Account() {

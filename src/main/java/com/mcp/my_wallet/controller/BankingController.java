@@ -84,7 +84,7 @@ public class BankingController {
         return creditCardService.findByCardNumber(cardNumber);
     }
 
-    // find all
+    // find all cards
     @GetMapping("/card")
     public List<CreditCard> findAllCreditCards(){
         return creditCardService.findAll();
