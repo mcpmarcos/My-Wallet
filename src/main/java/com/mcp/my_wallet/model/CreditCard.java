@@ -1,11 +1,13 @@
 package com.mcp.my_wallet.model;
 
 import com.mcp.my_wallet.enums.*;
+import com.mcp.my_wallet.enums.CardBrand;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;;
 
@@ -25,9 +27,10 @@ public class CreditCard {
     
     private boolean isActivated;
     
-    // JsonIgnore 
-    //@ManyToOne(mappedBy ) 
-    //private Account account; 
+    //JsonIgnore 
+    @ManyToOne
+    @JoinColumn(name = "acocunt_id") 
+    private Account account; 
     
     // List of dependents
     

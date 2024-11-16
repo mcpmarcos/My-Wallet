@@ -23,6 +23,7 @@ public class ClientService {
      public ResponseEntity<Client> createClient(ClientDTO clientDTO) {
         Client newClient = new Client(clientDTO.id(), clientDTO.cpf(), clientDTO.name(), clientDTO.password(), clientDTO.birth(), clientDTO.address(), clientDTO.account());
 
+        //CreditCard creditCard = newClient.getAccount().
     
         //newClient.account.cards.add(creditCardService.createCreditCard(VISA));
 

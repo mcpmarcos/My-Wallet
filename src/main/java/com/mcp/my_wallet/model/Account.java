@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,10 +32,9 @@ public class Account {
     private Long consumedCredit;
     
     //testar o cascade all
-    @OneToMany
-    @JoinColumn(name = "id")
+    //@JsonIgnore
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<CreditCard> cards;
-
 
 
     // OneToMany List of transactions

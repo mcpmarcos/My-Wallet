@@ -94,14 +94,22 @@ public class BankingController {
 
     
     //==========================================
-
+    
+    //
+    
+    // create transaction entity
+    
     // paymentTransaction   >>  update balance
 
     // save transaction in account
 
-    // Generate invoice
+    // criar lógica para a transação parcelada
 
-    // quit invoice
+    // create invoice entity
+
+    // Generate invoice(criar atributo para status da invoice, pode ser enum ou boolean)
+
+    // quit invoice(apenas um botão que dispara requisição pra alterar o status da invoice para PAGO/PAYD) 
 
     // save invoice in account
 

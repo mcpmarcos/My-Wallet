@@ -74,15 +74,13 @@ public class CreditCardService {
         return ResponseEntity.ok("Ok");
     }
     
-
     // delete credit card
     public void deleteCreditCard(Long id) {
         CreditCard creditCard = creditCardRepository.findById(id).get();
         creditCardRepository.delete(creditCard);
     }
     
-    // create dtos
-
+    // CREATE DTOs
     /*
      public FullCreditCardDTO createDTO(CreditCard creditCard) {
         FullCreditCardDTO fullCreditCardDTO = new FullCreditCardDTO(
