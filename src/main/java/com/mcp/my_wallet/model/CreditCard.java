@@ -28,11 +28,21 @@ public class CreditCard {
     
     // JsonIgnore ManyToOne (mappedBy = cards) account 
 
+    public CreditCard(Long id, CardBrand cardBrand, String cardNumber, String binNumber, boolean isActivated) {
+        this.id = id;
+        this.cardBrand = cardBrand;
+        this.cardNumber = cardNumber;
+        this.binNumber = binNumber;
+        this.isActivated = isActivated;
+    }
+
     public CreditCard(CardBrand cardBrand) {
         this.cardBrand = cardBrand;
     }
 
     public CreditCard(){}
 
-    
+    public boolean getIsActivated() {
+        return isActivated;
+    }
 }

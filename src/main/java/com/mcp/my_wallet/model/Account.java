@@ -1,11 +1,15 @@
 package com.mcp.my_wallet.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
@@ -25,7 +29,10 @@ public class Account {
     
     private Long consumedCredit;
     
-    // OneToMany List of cards
+    // OneToMany 
+    //@OneToMany
+    //@JoinColumn(name = "id")
+    //private List<CreditCard> cards;
     // OneToMany List of transactions
     // OneToMany List of invoices
 
