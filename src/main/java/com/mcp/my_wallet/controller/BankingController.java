@@ -10,16 +10,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mcp.my_wallet.DTO.AccountDTO;
 import com.mcp.my_wallet.DTO.ClientDTO;
 import com.mcp.my_wallet.DTO.CreditCardBrandDTO;
+import com.mcp.my_wallet.DTO.DependentDTO;
+import com.mcp.my_wallet.DTO.UpdatedDependendDTO;
 import com.mcp.my_wallet.model.Client;
 import com.mcp.my_wallet.model.CreditCard;
+import com.mcp.my_wallet.model.Dependent;
 import com.mcp.my_wallet.service.AccountService;
 import com.mcp.my_wallet.service.ClientService;
 import com.mcp.my_wallet.service.CreditCardService;
+import com.mcp.my_wallet.service.DependentService;
 
 @RestController
 public class BankingController {
@@ -33,11 +38,12 @@ public class BankingController {
     @Autowired
     CreditCardService creditCardService;
     
-    
+    @Autowired
+    DependentService dependentService;
     
     // register client
     @PostMapping("/client")
-    public ResponseEntity<Client>createclient(@RequestBody ClientDTO clientDTO) {
+    public ResponseEntity<Client>registerNewclient(@RequestBody ClientDTO clientDTO) {
         return clientService.createClient(clientDTO);
     }
 
@@ -90,10 +96,37 @@ public class BankingController {
         return creditCardService.findAll();
     }
     
-    
-    // Add dependents to a credit card(cardNumber)
+    @PostMapping("/dependent/{cardNumber}")
+    public ResponseEntity<DependentDTO> insertDependentOnCard(@RequestBody DependentDTO dependentDTO, @PathVariable String cardNumber){
+        return dependentService.insertDependentOnCard(dependentDTO, cardNumber);       
+    }
 
-    
+    //find dependent by id
+    @GetMapping("/dependent/{dependentID}")
+    public DependentDTO finddependedById(@PathVariable Long dependentId){
+        return dependentService.findById(dependentId);
+    }
+
+    //find all dependents
+    @GetMapping("/dependent")
+    public List<DependentDTO> findAllDependents(){
+        return dependentService.findAll();
+    }
+
+    // update dependent data
+    @PutMapping("/dependent/{dependentID}")
+    public ResponseEntity<String> updateDependentData(@RequestParam UpdatedDependendDTO dependentDTO, @PathVariable Long dependentID ){
+        return dependentService.updateDependentData(dependentDTO, dependentID);
+    }
+
+    // delete dependent
+    @DeleteMapping("/dependent/{dependentId}")
+    public void deleteDependent(@PathVariable Long dependentId){
+        dependentService.deleteDependent(dependentId);
+    }
+
+
+
     //==========================================
     
 
@@ -117,5 +150,5 @@ public class BankingController {
 
     //analisar quais endpoints terão que ser alterados para receberem o número cartão como parâmetro e quais receberão o id do client
 
-     //(opcional, apenas para tornar a api "mais restful"), criar DTO para cartão de crédito e as demais entidades, não criei pq to com pressa e só queria fazer funcionar o básico logo kkk
+     //Criar e substituir DTO nos métodos de CRUD para o cartão de crédito, não criei pq to codando no VsCode e as vezes rolam uns bugs de importação de lib, daí eu tava com pressa e só queria fazer funcionar o básico logo kkk
 }
