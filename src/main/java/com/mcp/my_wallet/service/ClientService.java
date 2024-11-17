@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.mcp.my_wallet.model.Account;
 import com.mcp.my_wallet.model.Client;
 import com.mcp.my_wallet.model.CreditCard;
 import com.mcp.my_wallet.repository.ClientRepository;
+import com.mcp.my_wallet.utils.CreditCardUtils;
 
 @Service
 public class ClientService {
@@ -20,7 +22,8 @@ public class ClientService {
     @Autowired
     ClientRepository repository;
     
-    // CreditCardService creditCardService
+   @Autowired
+    CreditCardUtils creditCardUtils;
 
      public ResponseEntity<Client> createClient(ClientDTO clientDTO) {
         Client newClient = new Client(clientDTO.id(), clientDTO.cpf(), clientDTO.name(), clientDTO.password(), clientDTO.birth(), clientDTO.address(), clientDTO.account());
@@ -28,17 +31,13 @@ public class ClientService {
         List<CreditCard> cards = newClient.getAccount().getCards();
         for (CreditCard card: cards) {
             if (card.getBinNumber() == null) {
-                card.setCardNumber("0000000000000000");
-                card.setBinNumber("0");
+                card.setBinNumber(creditCardUtils.generateBinNumber(card.getCardBrand()));
+                card.setCardNumber(creditCardUtils.generateCardNumber(card));
                 card.setAccount(account);
             }
             int i = cards.indexOf(card);
             cards.set(i, card);
         } 
-        
-        //criar rotinas para gerar os numeros de cartão coretamente
-        //newClient.account.cards.add(creditCardService.createCreditCard(VISA));
-
         repository.save(newClient);
         return ResponseEntity.status(HttpStatus.CREATED).body(newClient);
     }

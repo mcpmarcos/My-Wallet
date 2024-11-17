@@ -9,9 +9,10 @@ import com.mcp.my_wallet.DTO.ClientDTO;
 import com.mcp.my_wallet.DTO.CreditCardBrandDTO;
 import com.mcp.my_wallet.enums.CardBrand;
 import com.mcp.my_wallet.model.Account;
-import com.mcp.my_wallet.model.Client;
 import com.mcp.my_wallet.model.CreditCard;
 import com.mcp.my_wallet.repository.CreditCardRepository;
+import com.mcp.my_wallet.utils.CreditCardUtils;
+
 import java.util.List;
 
 @Service
@@ -22,23 +23,26 @@ public class CreditCardService {
     
     @Autowired
     ClientService clientService;
+
+    @Autowired
+    CreditCardUtils creditCardUtils;
     
+    //Create credit cards
     public ResponseEntity<CreditCard> createCreditCard(Long clientId, CreditCardBrandDTO brand) {
 
         ClientDTO clientDTO = clientService.findById(clientId);
         Account account = clientDTO.account();
         CardBrand cardBrand = brand.cardBrand();
         CreditCard newCreditCard = new CreditCard(cardBrand);
-        
         newCreditCard.setActivated(false);
-        newCreditCard.setCardNumber("3251654684");
-        newCreditCard.setBinNumber("123456");
+        newCreditCard.setBinNumber(creditCardUtils.generateBinNumber(cardBrand));
+        String cardNumber = creditCardUtils.generateCardNumber(newCreditCard);
+         if(creditCardRepository.findByCardNumber(cardNumber) != null) {
+            cardNumber = creditCardUtils.generateCardNumber(newCreditCard);
+         }
+        newCreditCard.setCardNumber(cardNumber);
         newCreditCard.setAccount(account);
         account.getCards().add(newCreditCard);
-
-        //newCreditCard.setBinNumber(CreditCardUtils.generateBinNumber(newCreditCard.getCardBrand()));
-        //CreditCardUtils.generateNumbers(newCreditCard);
-        
         creditCardRepository.save(newCreditCard);
         return ResponseEntity.status(HttpStatus.CREATED).body(newCreditCard);
     } 
@@ -82,20 +86,5 @@ public class CreditCardService {
         CreditCard creditCard = creditCardRepository.findById(id).get();
         creditCardRepository.delete(creditCard);
     }
-    
-    // CREATE DTOs if necessary
-    /*
-     public FullCreditCardDTO createDTO(CreditCard creditCard) {
-        FullCreditCardDTO fullCreditCardDTO = new FullCreditCardDTO(
-            creditCard.getId(),
-            creditCard.getCardBrand(),
-            creditCard.getCardNumber(),
-            creditCard.getBinNumber(),
-            creditCard.getIsActivated()
-        );
-        return fullCreditCardDTO;
-    }
-    */
-
 
 }
