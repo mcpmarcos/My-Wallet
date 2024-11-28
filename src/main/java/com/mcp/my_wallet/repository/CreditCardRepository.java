@@ -12,5 +12,5 @@ public interface CreditCardRepository extends JpaRepository<CreditCard, Long>{
 
     Optional<CreditCard> findByCardNumber(String cardNumber);
     
-
+    
 }

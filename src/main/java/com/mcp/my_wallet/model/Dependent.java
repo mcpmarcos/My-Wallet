@@ -22,7 +22,7 @@ public class Dependent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    private int cpf;
+    private String dependentCpf;
     
     private String clientName;
     
@@ -35,11 +35,13 @@ public class Dependent {
     private CreditCard card;
     
 
-    public Dependent(Long id, int cpf, String clientName, LocalDateTime birth, CreditCard card){
+    public Dependent(Long id, String dependentCpf, String clientName, LocalDateTime birth, CreditCard card){
         this.id = id;
-        this.cpf = cpf;
+        this.dependentCpf = dependentCpf;
         this.clientName = clientName;
         this.birth = birth;
         this.card = card;
     }
+
+    public Dependent(){}
 }

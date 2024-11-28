@@ -25,21 +25,22 @@ public class DependentService {
     CreditCardService cardService;
 
     public ResponseEntity<DependentDTO> insertDependentOnCard(DependentDTO dependentDTO, String cardNumber) {
-       
         CreditCard card = cardService.findByCardNumber(cardNumber);
-      
-        Dependent dependent = new Dependent(dependentDTO.id(), dependentDTO.cpf(), dependentDTO.clientName(), dependentDTO.birth(), card);
-      
+        Dependent dependent = new Dependent(dependentDTO.id(), dependentDTO.dependentCpf(), dependentDTO.clientName(), dependentDTO.birth(), card);
         card.getDependents().add(dependent);
-
         dependentRepository.save(dependent);
-       
         return ResponseEntity.status(HttpStatus.CREATED).body(createDTO(dependent));
     }
     
     // find by id
-    public DependentDTO findById(Long id) {
-        Dependent dependent = dependentRepository.findById(id).get();
+    public DependentDTO findById(Long dependentId) {
+        Dependent dependent = dependentRepository.findById(dependentId).get();
+        return createDTO(dependent);
+    }
+
+    //find by cpf
+    public DependentDTO findByDependentCpf(@PathVariable String dependentCpf){
+        Dependent dependent = dependentRepository.findByDependentCpf(dependentCpf).get();
         return createDTO(dependent);
     }
 
@@ -50,10 +51,10 @@ public class DependentService {
     }
     
     // update dependent data
-    public ResponseEntity<String> updateDependentData(UpdatedDependendDTO dependentDTO, Long dependentID){
-        Dependent dependent = dependentRepository.findById(dependentID).get();
+    public ResponseEntity<String> updateDependentData(DependentDTO dependentDTO, String cpf){
+        Dependent dependent = dependentRepository.findByDependentCpf(cpf).get();
         if (!dependent.equals(null)) {
-            dependent.setCpf(dependentDTO.cpf());
+            dependent.setDependentCpf(dependentDTO.dependentCpf());
             dependent.setClientName(dependentDTO.clientName());
             dependent.setBirth(dependentDTO.birth());
             dependentRepository.save(dependent);
@@ -68,14 +69,14 @@ public class DependentService {
     }
 
     public DependentDTO createDTO(Dependent dependent) {
-        DependentDTO dependentDTO = new DependentDTO(dependent.getId(), dependent.getCpf(), dependent.getClientName(), dependent.getBirth(), dependent.getCard());
+        DependentDTO dependentDTO = new DependentDTO(dependent.getId(), dependent.getDependentCpf(), dependent.getClientName(), dependent.getBirth(), dependent.getCard());
         return dependentDTO;
     }
 
     public List<DependentDTO> createDTO(List<Dependent> dependents) {
         List<DependentDTO> dependentsDTO = new ArrayList<>();
         for (Dependent dependent : dependents) {
-            DependentDTO dependentDTO = new DependentDTO(dependent.getId(), dependent.getCpf(), dependent.getClientName(), dependent.getBirth(), dependent.getCard());
+            DependentDTO dependentDTO = new DependentDTO(dependent.getId(), dependent.getDependentCpf(), dependent.getClientName(), dependent.getBirth(), dependent.getCard());
             dependentsDTO.add(dependentDTO);
         }
         return dependentsDTO;

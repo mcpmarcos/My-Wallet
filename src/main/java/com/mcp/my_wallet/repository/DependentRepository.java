@@ -10,6 +10,6 @@ import com.mcp.my_wallet.model.Dependent;
 @Repository
 public interface DependentRepository extends JpaRepository<Dependent, Long> {
     
-        //Optional<Dependent> findByCard(String cardNumber);
+        Optional<Dependent> findByDependentCpf(String dependentCpf);
 
 }

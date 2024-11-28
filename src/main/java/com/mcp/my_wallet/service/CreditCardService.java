@@ -66,24 +66,24 @@ public class CreditCardService {
     }
 
     // activate credit card
-    public ResponseEntity<String> activateCreditCard(Long id) {
-        CreditCard creditCard = creditCardRepository.findById(id).get();
+    public ResponseEntity<String> activateCreditCard(String cardNumber) {
+        CreditCard creditCard = creditCardRepository.findByCardNumber(cardNumber).get();
         creditCard.setActivated(true);
         creditCardRepository.save(creditCard);
         return ResponseEntity.ok("Ok");
     }
     
     // desactivate credit card
-    public ResponseEntity<String> desactivateCreditCard(Long id) {
-        CreditCard creditCard = creditCardRepository.findById(id).get();
+    public ResponseEntity<String> desactivateCreditCard(String cardNumber) {
+        CreditCard creditCard = creditCardRepository.findByCardNumber(cardNumber).get();
         creditCard.setActivated(false);
         creditCardRepository.save(creditCard);
         return ResponseEntity.ok("Ok");
     }
     
     // delete credit card
-    public void deleteCreditCard(Long id) {
-        CreditCard creditCard = creditCardRepository.findById(id).get();
+    public void deleteCreditCardBycardNumber(String cardNumber) {
+        CreditCard creditCard = creditCardRepository.findByCardNumber(cardNumber).get();
         creditCardRepository.delete(creditCard);
     }
 
