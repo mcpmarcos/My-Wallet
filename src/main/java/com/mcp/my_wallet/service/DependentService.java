@@ -26,7 +26,7 @@ public class DependentService {
 
     public ResponseEntity<DependentDTO> insertDependentOnCard(DependentDTO dependentDTO, String cardNumber) {
         CreditCard card = cardService.findByCardNumber(cardNumber);
-        Dependent dependent = new Dependent(dependentDTO.id(), dependentDTO.dependentCpf(), dependentDTO.clientName(), dependentDTO.birth(), card);
+        Dependent dependent = new Dependent(dependentDTO.id(), dependentDTO.dependentCpf(), dependentDTO.dependentName(), dependentDTO.birth(), card);
         card.getDependents().add(dependent);
         dependentRepository.save(dependent);
         return ResponseEntity.status(HttpStatus.CREATED).body(createDTO(dependent));
@@ -55,7 +55,7 @@ public class DependentService {
         Dependent dependent = dependentRepository.findByDependentCpf(cpf).get();
         if (!dependent.equals(null)) {
             dependent.setDependentCpf(dependentDTO.dependentCpf());
-            dependent.setClientName(dependentDTO.clientName());
+            dependent.setDependentName(dependentDTO.dependentName());
             dependent.setBirth(dependentDTO.birth());
             dependentRepository.save(dependent);
         }
@@ -69,14 +69,14 @@ public class DependentService {
     }
 
     public DependentDTO createDTO(Dependent dependent) {
-        DependentDTO dependentDTO = new DependentDTO(dependent.getId(), dependent.getDependentCpf(), dependent.getClientName(), dependent.getBirth(), dependent.getCard());
+        DependentDTO dependentDTO = new DependentDTO(dependent.getId(), dependent.getDependentCpf(), dependent.getDependentName(), dependent.getBirth(), dependent.getCard());
         return dependentDTO;
     }
 
     public List<DependentDTO> createDTO(List<Dependent> dependents) {
         List<DependentDTO> dependentsDTO = new ArrayList<>();
         for (Dependent dependent : dependents) {
-            DependentDTO dependentDTO = new DependentDTO(dependent.getId(), dependent.getDependentCpf(), dependent.getClientName(), dependent.getBirth(), dependent.getCard());
+            DependentDTO dependentDTO = new DependentDTO(dependent.getId(), dependent.getDependentCpf(), dependent.getDependentName(), dependent.getBirth(), dependent.getCard());
             dependentsDTO.add(dependentDTO);
         }
         return dependentsDTO;

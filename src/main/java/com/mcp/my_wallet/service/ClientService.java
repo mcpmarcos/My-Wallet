@@ -52,8 +52,8 @@ public class ClientService {
         return createDTO(clients);
     }
     
-    public ResponseEntity<String> updateClient(ClientDTO clientDTO, Long id) {
-       Client newClient = repository.findById(id).get(); 
+    public ResponseEntity<String> updateClient(ClientDTO clientDTO, Long clientId) {
+       Client newClient = repository.findById(clientId).get(); 
        if (!newClient.equals(null)) {
         newClient.setCpf(clientDTO.cpf());
         newClient.setName(clientDTO.name());

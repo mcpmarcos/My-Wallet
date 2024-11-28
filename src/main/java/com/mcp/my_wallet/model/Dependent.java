@@ -24,7 +24,7 @@ public class Dependent {
     
     private String dependentCpf;
     
-    private String clientName;
+    private String dependentName;
     
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDateTime birth;
@@ -35,10 +35,10 @@ public class Dependent {
     private CreditCard card;
     
 
-    public Dependent(Long id, String dependentCpf, String clientName, LocalDateTime birth, CreditCard card){
+    public Dependent(Long id, String dependentCpf, String dependentName, LocalDateTime birth, CreditCard card){
         this.id = id;
         this.dependentCpf = dependentCpf;
-        this.clientName = clientName;
+        this.dependentName = dependentName;
         this.birth = birth;
         this.card = card;
     }

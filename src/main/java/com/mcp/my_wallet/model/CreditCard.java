@@ -37,7 +37,7 @@ public class CreditCard {
     private Account account; 
     
   
-    @OneToMany(mappedBy = "card", orphanRemoval = true) 
+    @OneToMany(mappedBy = "card") 
     private List<Dependent> dependents;
     
     public CreditCard(Long id, CardBrand cardBrand, String cardNumber, String binNumber, boolean isActivated) {

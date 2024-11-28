@@ -31,12 +31,14 @@ public class Account {
     
     private Long consumedCredit;
     
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<CreditCard> cards;
 
-    // OneToMany List of transactions
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    List<Transaction> transactions;
 
-    // OneToMany List of invoices
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    List<Invoice> invoices;
 
     public Account(Long id, Client client, Long accountCreditLimit, Long consumedCredit, List<CreditCard> cards) {
         this.id = id;

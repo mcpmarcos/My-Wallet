@@ -8,5 +8,5 @@ import com.mcp.my_wallet.model.Client;
 
 public interface ClientRepository extends JpaRepository<Client, Long>{
  
-    Optional<Client> findById(Long id);
+    Optional<Client> findById(Long clientId);
 }

@@ -23,7 +23,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int cpf;
+    private String cpf;
 
     private String name;
 
@@ -43,7 +43,7 @@ public class Client {
     @JsonIgnore
     private Account account;
 
-    public Client (Long id, int cpf, String name, String password, LocalDateTime birth, Address address, Account account) {
+    public Client (Long id, String cpf, String name, String password, LocalDateTime birth, Address address, Account account) {
         this.id = id;
         this.cpf = cpf;
         this.name = name;
