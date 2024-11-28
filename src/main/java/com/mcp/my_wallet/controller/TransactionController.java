@@ -6,4 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class TransactionController {
     
     // public paymentTransaction()
+    
+    public void paymentTransaction(){
+    }
+
+    // find all transactions
 }

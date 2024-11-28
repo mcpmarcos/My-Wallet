@@ -37,7 +37,7 @@ public class Invoice {
 
     private boolean isPaid;
 
-    public String referenceMonth;
+    public String referenceMonth; // pegar o mês da data de criação da fatura mais velha
 
     // public List<Transaction> transactions;
 

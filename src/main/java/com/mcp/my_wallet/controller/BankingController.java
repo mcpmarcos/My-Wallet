@@ -54,6 +54,11 @@ public class BankingController {
     // save transaction in account
 
     // criar lógica para a transação parcelada
+    /*
+     *  se qtd parcelas > 1
+     *      salvar em transações parceladas
+     *  
+    */
 
     // Generate invoice(criar atributo para status da invoice, pode ser enum ou boolean)
 
