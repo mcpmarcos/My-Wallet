@@ -20,24 +20,39 @@ import lombok.Data;
 @Data
 public class Transaction {
     
-	 @Id
-     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     private Long id;
-
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private Long amount;
+    
+    private String buyingLocation;
+    
+    private String operatorName;
+    
+    @CreationTimestamp
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDateTime timestamp;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
 
-    private BigDecimal amount;
+    // private transactionParcell parcell;
+    // int qtdParcela
 
-    private String buyingLocation;
-    
-    private String operatorName;
+    /*
+     * Parcell
+     *  id
+     *  valor
+    */
 
-    @CreationTimestamp
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDateTime timestamp;
+    public Transaction(Long id, Long amount, String buyingLocation, String operatorName) {
+        this.id = id;
+        this.amount = amount;
+        this.buyingLocation = buyingLocation;
+        this.operatorName = operatorName;
+    }
 
 }
